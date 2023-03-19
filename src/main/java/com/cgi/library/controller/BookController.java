@@ -18,6 +18,7 @@ public class BookController {
     private BookService bookService;
 
     @GetMapping(value = "getBooks")
+    // See on 1. yl endpoint
     public ResponseEntity<Page<BookDTO>> getBooks(Pageable pageable) {
         return ResponseEntity.ok(bookService.getBooks(pageable));
     }
