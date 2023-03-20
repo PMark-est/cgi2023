@@ -8,22 +8,20 @@ import { map, switchMap } from 'rxjs/operators';
 @Component({
   selector: 'app-book-detail',
   templateUrl: './book-detail.component.html',
-  styleUrls: ['./book-detail.component.scss']
+  styleUrls: ['./book-detail.component.scss'],
 })
 export class BookDetailComponent implements OnInit {
   book$!: Observable<Book>;
 
-
   constructor(
     private route: ActivatedRoute,
-    private bookService: BookService,
-  ) {
-  }
+    private bookService: BookService
+  ) {}
 
   ngOnInit(): void {
     this.book$ = this.route.params
-      .pipe(map(params => params['id']))
-      .pipe(switchMap(id => this.bookService.getBook(id)))
+      .pipe(map((params) => params['id']))
+      .pipe(switchMap((id) => this.bookService.getBook(id)));
+    console.log(this.book$);
   }
-
 }

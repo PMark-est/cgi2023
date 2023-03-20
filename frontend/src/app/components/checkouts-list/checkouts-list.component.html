@@ -9,15 +9,15 @@
       aria-label="Select page"
     >
     </mat-paginator>
-    <mat-card-title>Books</mat-card-title>
+    <mat-card-title> Checkouts </mat-card-title>
     <mat-card-content>
-      <mat-nav-list *ngIf="books | async as books">
+      <mat-nav-list *ngIf="checkouts | async as checkouts">
         <a
           mat-list-item
-          *ngFor="let book of books.content"
-          [routerLink]="['/books', book.id]"
+          *ngFor="let checkout of checkouts.content"
+          [routerLink]="['/checkouts', checkout.id]"
         >
-          {{ book.title }}
+          {{ checkout.borrowedBook.id }}
         </a>
       </mat-nav-list>
     </mat-card-content>

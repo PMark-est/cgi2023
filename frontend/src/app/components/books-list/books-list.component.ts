@@ -11,7 +11,7 @@ import { PageEvent } from '@angular/material/paginator';
   styleUrls: ['./books-list.component.scss'],
 })
 export class BooksListComponent implements OnInit {
-  books$!: Observable<Page<Book>>;
+  books: Observable<Page<Book>>;
   pageNumber: number = 0;
   pageAmount: number;
   pageSize: number = 1;
@@ -23,15 +23,13 @@ export class BooksListComponent implements OnInit {
 
   ngOnInit(): void {
     // TODO this observable should emit books taking into consideration pagination, sorting and filtering options.
-    this.books$ = this.bookService.getBooks({});
-    console.log(this.pageNumber);
+    this.books = this.bookService.getBooks({});
     this.bookService
       .getBooks({})
       .subscribe((val) => (this.pageAmount = val.totalPages));
   }
   handlePageEvent(pageEvent: PageEvent) {
     this.pageNumber = pageEvent.pageIndex;
-    this.books$ = this.bookService.getBooks({ pageIndex: this.pageNumber });
-    console.log(this.pageNumber);
+    this.books = this.bookService.getBooks({ pageIndex: this.pageNumber });
   }
 }
