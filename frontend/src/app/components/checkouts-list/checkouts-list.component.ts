@@ -4,6 +4,8 @@ import { Checkout } from 'src/app/models/checkout';
 import { Page } from 'src/app/models/page';
 import { PageEvent } from '@angular/material/paginator';
 import { CheckoutService } from 'src/app/services/checkout.service';
+import { UiService } from 'src/app/services/ui.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-checkouts-list',
@@ -18,7 +20,18 @@ export class CheckoutsListComponent implements OnInit {
   sort: string = 'n';
   direction: string = 'asc';
   pageEvent: PageEvent;
-  constructor(private checkoutService: CheckoutService) {}
+
+  showAddForm: boolean;
+  subscription: Subscription;
+
+  constructor(
+    private checkoutService: CheckoutService,
+    private uiService: UiService
+  ) {
+    this.subscription = this.uiService
+      .onToggle()
+      .subscribe((val) => (this.showAddForm = val));
+  }
 
   ngOnInit(): void {
     this.checkouts = this.checkoutService.getCheckouts({});
@@ -32,5 +45,9 @@ export class CheckoutsListComponent implements OnInit {
     this.checkouts = this.checkoutService.getCheckouts({
       pageIndex: this.pageNumber,
     });
+  }
+
+  toggleAddCheckout(): void {
+    this.uiService.toggleAddForm();
   }
 }

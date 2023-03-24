@@ -1,0 +1,22 @@
+.form-controller input {
+  text-align: center;
+  margin-bottom: 5px;
+  border: none;
+  display: block;
+}
+.status {
+  display: flex;
+}
+input[type="submit"] {
+  margin-top: 1em;
+  background-color: #c84566;
+  border: black solid 1px;
+  color: #fff;
+  padding: 0.65em 4.4em;
+  text-decoration: none;
+  cursor: pointer;
+}
+input {
+  background-color: #f4d7c6;
+  border-radius: 4px;
+}

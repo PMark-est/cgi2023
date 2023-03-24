@@ -1,0 +1,18 @@
+<form>
+  <div class="form-controller">
+    <input type="text" [(ngModel)]="id" name="id" placeholder="* Laenu ID" />
+    <input
+      type="text"
+      name="borrowerFirstName"
+      placeholder="* Laenaja eesnimi"
+    />
+    <input
+      type="text"
+      name="borrowerLastName"
+      placeholder="* Laenaja perenimi"
+    />
+    <input type="text" name="borrowedBook" placeholder="* Laenatud raamat" />
+    <input type="text" name="returnedDate" placeholder="Tagastuskuupäev" />
+  </div>
+  <input type="submit" value="Lisa laenutus" (click)="onClick()" />
+</form>

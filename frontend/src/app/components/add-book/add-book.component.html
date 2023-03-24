@@ -1,0 +1,47 @@
+<form>
+  <div class="form-controller">
+    <input
+      type="text"
+      [(ngModel)]="id"
+      name="id"
+      placeholder="Raamatu ID"
+      autocomplete="off"
+    />
+    <input
+      type="text"
+      [(ngModel)]="title"
+      name="title"
+      placeholder="Pealkiri"
+      autocomplete="off"
+    />
+    <input
+      type="text"
+      [(ngModel)]="author"
+      name="author"
+      placeholder="Autor"
+      autocomplete="off"
+    />
+    <input
+      type="text"
+      [(ngModel)]="genre"
+      name="genre"
+      placeholder="Žanr"
+      autocomplete="off"
+    />
+    <input
+      type="number"
+      [(ngModel)]="year"
+      name="year"
+      placeholder="Ilmumisaasta"
+      autocomplete="off"
+    />
+    <input
+      type="text"
+      [(ngModel)]="comment"
+      name="comment"
+      placeholder="Kommentaar"
+      autocomplete="off"
+    />
+  </div>
+  <input type="submit" value="Lisa raamat" (click)="onSubmit()" />
+</form>
