@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./books-list.component.scss'],
 })
 export class BooksListComponent implements OnInit {
-  books: Observable<Page<Book>>;
+  books$!: Observable<Page<Book>>;
   pageNumber: number = 0;
   pageAmount: number;
   pageSize: number = 1;
@@ -23,6 +23,8 @@ export class BooksListComponent implements OnInit {
   pageEvent: PageEvent;
   page: number;
 
+  title: string;
+  pages = 0;
   showAddForm: boolean;
   subscription: Subscription;
 
@@ -34,17 +36,46 @@ export class BooksListComponent implements OnInit {
 
   ngOnInit(): void {
     // TODO this observable should emit books taking into consideration pagination, sorting and filtering options.
-    this.books = this.bookService.getBooks({});
-    this.books.subscribe((val) => (this.pageAmount = val.totalPages));
+    this.books$ = this.bookService.getBooks({});
+    this.books$.subscribe((val) => (this.pageAmount = val.totalPages));
   }
   handlePageEvent(pageEvent: PageEvent) {
     this.pageNumber = pageEvent.pageIndex;
     this.page = pageEvent.pageIndex;
-    this.books = this.bookService.getBooks({ pageIndex: this.pageNumber });
+    this.books$ = this.bookService.getBooks({ pageIndex: this.pageNumber });
     // TODO: QUERYPARAMS!!!
     //this.route.queryParams.subscribe((val) => console.log(val));
   }
   toggleAddBooks(): void {
     this.uiService.toggleAddForm();
   }
+  /*
+  findAllBooks() {
+    for (let i = 0; i < this.pages; i++) {
+      this.bookService
+        .getBooks({ pageIndex: i })
+        .subscribe((val) =>
+          val.content.forEach((book) => this.books.push(book))
+        );
+    }
+  }
+  
+  searchForBook(): void {
+    if (!this.title) {
+      alert('Pole midagi');
+      return;
+    }
+    if (this.books.length == 0) {
+      this.findAllBooks();
+    }
+    let searchLength = this.title.length;
+    let foundBooks = [];
+    this.books.forEach((book) => {
+      if (book.title.substring(0, searchLength) == this.title)
+      foundBooks.push(book.title);
+    });
+    alert(foundBooks.length);
+  }
+  */
+  searchForBook(): void {}
 }

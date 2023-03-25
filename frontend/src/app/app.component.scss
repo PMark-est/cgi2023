@@ -1,6 +1,10 @@
 .mat-toolbar-single-row {
+  justify-content: space-between;
   background-color: #f5e9e2;
   height: 35px;
+}
+.search {
+  margin-right: 5.5em;
 }
 .buttons {
   margin-left: 5.5em;

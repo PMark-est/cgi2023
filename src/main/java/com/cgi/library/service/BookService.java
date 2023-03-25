@@ -10,7 +10,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class BookService {
@@ -21,6 +23,21 @@ public class BookService {
     public Page<BookDTO> getBooks(Pageable pageable) {
         ModelMapper modelMapper = ModelMapperFactory.getMapper();
         return bookRepository.findAll(pageable).map(book -> modelMapper.map(book, BookDTO.class));
+    }
+
+    public Page<BookDTO> getBooksByTitle(String title, Pageable pageable) {
+        //https://www.baeldung.com/java-modelmapper-lists
+        //https://www.youtube.com/watch?v=NMA4ndswwuo
+        ModelMapper modelMapper = ModelMapperFactory.getMapper();
+        return bookRepository.findByTitleLike(title+"%", pageable).map(book -> modelMapper.map(book, BookDTO.class));
+        /*
+        List<Book> books = bookRepository.findByTitleLike(title+"%", pageable);
+        List<BookDTO> dtos = books
+                .stream()
+                .map(book -> modelMapper.map(book, BookDTO.class))
+                .collect(Collectors.toList());
+
+         */
     }
 
     public BookDTO getBook(UUID bookId) {

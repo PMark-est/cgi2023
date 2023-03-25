@@ -1,13 +1,16 @@
 package com.cgi.library.controller;
 
+import com.cgi.library.entity.Book;
 import com.cgi.library.model.BookDTO;
 import com.cgi.library.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -21,6 +24,10 @@ public class BookController {
     // See on 1. yl endpoint
     public ResponseEntity<Page<BookDTO>> getBooks(Pageable pageable) {
         return ResponseEntity.ok(bookService.getBooks(pageable));
+    }
+    @GetMapping(value = "getBooks/byTitle")
+    public ResponseEntity<Page<BookDTO>> getBooksByTitle(@RequestParam String title, Pageable pageable) {
+        return ResponseEntity.ok(bookService.getBooksByTitle(title, pageable));
     }
 
     @GetMapping(value = "getBook")
