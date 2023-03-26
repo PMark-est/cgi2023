@@ -22,14 +22,12 @@ public class BookController {
 
     @GetMapping(value = "getBooks")
     // See on 1. yl endpoint
-    public ResponseEntity<Page<BookDTO>> getBooks(Pageable pageable) {
-        return ResponseEntity.ok(bookService.getBooks(pageable));
+    public ResponseEntity<Page<BookDTO>> getBooks(@RequestParam(required = false) String term, Pageable pageable) {
+        if (term == null) {
+            return ResponseEntity.ok(bookService.getBooks(pageable));
+        }
+        return ResponseEntity.ok(bookService.searchBooks(term, pageable));
     }
-    @GetMapping(value = "getBooks/byTitle")
-    public ResponseEntity<Page<BookDTO>> getBooksByTitle(@RequestParam String title, Pageable pageable) {
-        return ResponseEntity.ok(bookService.getBooksByTitle(title, pageable));
-    }
-
     @GetMapping(value = "getBook")
     public ResponseEntity<BookDTO> getBook(@RequestParam(value = "bookId") UUID bookId) {
         return ResponseEntity.ok(bookService.getBook(bookId));

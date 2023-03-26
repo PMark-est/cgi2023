@@ -1,1 +1,11 @@
-<pre>{{ book$ | async | json }}</pre>
+<div class="content" *ngIf="book$ | async as book">
+  <h1>{{ book.title }}</h1>
+  <span> Autor: {{ book.author }} </span>
+  <span> Žanr: {{ book.genre }} </span>
+  <span> Ilmumisaasta: {{ book.year }} </span>
+  <span> Olemasolu: {{ book.status }} </span>
+  <span> Tähtaeg: {{ book.dueDate }} </span>
+  <span> Mitu korda on laenutatud: {{ book.checkOutCount }} </span>
+  <span> Lisatud: {{ book.added }} </span>
+  <span> Kommentaar: {{ book.comment }} </span>
+</div>

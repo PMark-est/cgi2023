@@ -1,1 +1,8 @@
-<pre>{{ checkout | async | json }}</pre>
+<div class="content" *ngIf="checkout$ | async as checkout">
+  <h1>{{ checkout.borrowedBook.title }}</h1>
+  <span>
+    Laenutaja: {{ checkout.borrowerFirstName }} {{ checkout.borrowerLastName }}
+  </span>
+  <span> Laenutatud: {{ checkout.checkedOutDate }} </span>
+  <span> Tähtaeg: {{ checkout.dueDate }} </span>
+</div>

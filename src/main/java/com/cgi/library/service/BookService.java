@@ -25,19 +25,13 @@ public class BookService {
         return bookRepository.findAll(pageable).map(book -> modelMapper.map(book, BookDTO.class));
     }
 
-    public Page<BookDTO> getBooksByTitle(String title, Pageable pageable) {
+    public Page<BookDTO> searchBooks(String term, Pageable pageable) {
         //https://www.baeldung.com/java-modelmapper-lists
         //https://www.youtube.com/watch?v=NMA4ndswwuo
+        //https://www.bezkoder.com/spring-data-pageable-custom-query/
+        //Need aitasid õigest käima panna, aga loogika on ise loodud
         ModelMapper modelMapper = ModelMapperFactory.getMapper();
-        return bookRepository.findByTitleLike(title+"%", pageable).map(book -> modelMapper.map(book, BookDTO.class));
-        /*
-        List<Book> books = bookRepository.findByTitleLike(title+"%", pageable);
-        List<BookDTO> dtos = books
-                .stream()
-                .map(book -> modelMapper.map(book, BookDTO.class))
-                .collect(Collectors.toList());
-
-         */
+        return bookRepository.searchBooks(term, pageable).map(book -> modelMapper.map(book, BookDTO.class));
     }
 
     public BookDTO getBook(UUID bookId) {

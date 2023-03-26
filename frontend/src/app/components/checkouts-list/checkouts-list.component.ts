@@ -4,8 +4,7 @@ import { Checkout } from 'src/app/models/checkout';
 import { Page } from 'src/app/models/page';
 import { PageEvent } from '@angular/material/paginator';
 import { CheckoutService } from 'src/app/services/checkout.service';
-import { UiService } from 'src/app/services/ui.service';
-import { Subscription } from 'rxjs';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-checkouts-list',
@@ -13,41 +12,42 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./checkouts-list.component.scss'],
 })
 export class CheckoutsListComponent implements OnInit {
-  checkouts: Observable<Page<Checkout>>;
-  pageNumber: number = 0;
+  checkouts$!: Observable<Page<Checkout>>;
+  currentPage: number = 0;
   pageAmount: number;
-  pageSize: number = 1;
+  pageSize: number = 20;
   sort: string = 'n';
   direction: string = 'asc';
   pageEvent: PageEvent;
 
-  showAddForm: boolean;
-  subscription: Subscription;
-
   constructor(
     private checkoutService: CheckoutService,
-    private uiService: UiService
-  ) {
-    this.subscription = this.uiService
-      .onToggle()
-      .subscribe((val) => (this.showAddForm = val));
-  }
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    this.checkouts = this.checkoutService.getCheckouts({});
-    this.checkoutService
-      .getCheckouts({})
-      .subscribe((val) => (this.pageAmount = val.totalPages));
+    this.activatedRoute.queryParams.subscribe(
+      (val) => (this.currentPage = val['page'])
+    );
+    this.checkouts$ = this.checkoutService.getCheckouts({
+      pageIndex: this.currentPage,
+    });
+    this.checkouts$.subscribe((val) => (this.pageAmount = val.totalElements));
   }
 
   handlePageEvent(pageEvent: PageEvent) {
-    this.pageNumber = pageEvent.pageIndex;
-    this.checkouts = this.checkoutService.getCheckouts({
-      pageIndex: this.pageNumber,
+    this.currentPage = pageEvent.pageIndex;
+    this.checkouts$ = this.checkoutService.getCheckouts({
+      pageIndex: this.currentPage,
     });
-  }
-
-  toggleAddCheckout(): void {
-    this.uiService.toggleAddForm();
+    this.currentPage = pageEvent.pageIndex;
+    this.router.navigate(['/checkouts'], {
+      queryParams: { page: this.currentPage },
+    });
+    console.log(this.currentPage);
+    this.checkouts$ = this.checkoutService.getCheckouts({
+      pageIndex: this.currentPage,
+    });
   }
 }

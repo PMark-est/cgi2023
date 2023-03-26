@@ -11,7 +11,7 @@ import { CheckoutService } from 'src/app/services/checkout.service';
   styleUrls: ['./checkout-detail.component.scss'],
 })
 export class CheckoutDetailComponent implements OnInit {
-  checkout: Observable<Checkout>;
+  checkout$!: Observable<Checkout>;
 
   constructor(
     private route: ActivatedRoute,
@@ -19,7 +19,7 @@ export class CheckoutDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.checkout = this.route.params
+    this.checkout$ = this.route.params
       .pipe(map((params) => params['id']))
       .pipe(switchMap((id) => this.checkoutService.getCheckout(id)));
   }

@@ -15,20 +15,24 @@ import { Subscription } from 'rxjs';
 })
 export class BooksListComponent implements OnInit {
   books$!: Observable<Page<Book>>;
-  pageNumber: number = 0;
+  currentPage: number = 0;
   pageAmount: number;
-  pageSize: number = 1;
+  pageSize: number = 20;
   sort: string = 'n';
   direction: string = 'asc';
   pageEvent: PageEvent;
-  page: number;
 
-  title: string;
-  pages = 0;
+  searchTerm: string;
   showAddForm: boolean;
   subscription: Subscription;
 
-  constructor(private bookService: BookService, private uiService: UiService) {
+  constructor(
+    private bookService: BookService,
+    private uiService: UiService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {
+    router.events.subscribe((event) => console.log(event));
     this.subscription = this.uiService
       .onToggle()
       .subscribe((val) => (this.showAddForm = val));
@@ -36,46 +40,29 @@ export class BooksListComponent implements OnInit {
 
   ngOnInit(): void {
     // TODO this observable should emit books taking into consideration pagination, sorting and filtering options.
-    this.books$ = this.bookService.getBooks({});
-    this.books$.subscribe((val) => (this.pageAmount = val.totalPages));
+    this.activatedRoute.queryParams.subscribe(
+      (val) => (this.currentPage = val['page'])
+    );
+    this.books$ = this.bookService.getBooks({ pageIndex: this.currentPage });
+    this.books$.subscribe((val) => (this.pageAmount = val.totalElements));
   }
   handlePageEvent(pageEvent: PageEvent) {
-    this.pageNumber = pageEvent.pageIndex;
-    this.page = pageEvent.pageIndex;
-    this.books$ = this.bookService.getBooks({ pageIndex: this.pageNumber });
-    // TODO: QUERYPARAMS!!!
-    //this.route.queryParams.subscribe((val) => console.log(val));
+    //localStorage.setItem('favorites', JSON.stringify(['book', 'book2']));
+    //JSON.parse(localStorage.getItem('favorites') || '');
+    this.currentPage = pageEvent.pageIndex;
+    this.router.navigate(['/books'], {
+      queryParams: { page: this.currentPage },
+    });
+    this.books$ = this.bookService.getBooks({ pageIndex: this.currentPage });
   }
   toggleAddBooks(): void {
     this.uiService.toggleAddForm();
   }
-  /*
-  findAllBooks() {
-    for (let i = 0; i < this.pages; i++) {
-      this.bookService
-        .getBooks({ pageIndex: i })
-        .subscribe((val) =>
-          val.content.forEach((book) => this.books.push(book))
-        );
-    }
-  }
-  
-  searchForBook(): void {
-    if (!this.title) {
-      alert('Pole midagi');
-      return;
-    }
-    if (this.books.length == 0) {
-      this.findAllBooks();
-    }
-    let searchLength = this.title.length;
-    let foundBooks = [];
-    this.books.forEach((book) => {
-      if (book.title.substring(0, searchLength) == this.title)
-      foundBooks.push(book.title);
+
+  search(): void {
+    this.books$ = this.bookService.getBooks({ term: this.searchTerm });
+    this.router.navigate(['/books'], {
+      queryParams: { search: this.searchTerm },
     });
-    alert(foundBooks.length);
   }
-  */
-  searchForBook(): void {}
 }

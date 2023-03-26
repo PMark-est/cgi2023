@@ -3,21 +3,20 @@
     <div class="search">
       <input
         id="searchbar"
-        [(ngModel)]="title"
+        [(ngModel)]="searchTerm"
         type="text"
         placeholder="Otsi raamatut"
-        (keyup.enter)="searchForBook()"
+        (keyup.enter)="search()"
         autocomplete="off"
       />
     </div>
     <mat-paginator
-      [pageIndex]="pageNumber"
+      [pageIndex]="currentPage"
       [pageSize]="pageSize"
       [length]="pageAmount"
       (page)="handlePageEvent($event)"
       [hidePageSize]="true"
       [showFirstLastButtons]="true"
-      aria-label="Select page"
     >
     </mat-paginator>
     <mat-card-title class="books-title"
@@ -38,9 +37,8 @@
           mat-list-item
           *ngFor="let book of books.content"
           [routerLink]="['/books', book.id]"
-          [queryParams]="{ page: '{page}' }"
         >
-          {{ book.title }}
+          {{ book.title }} - <span class="book-author">{{ book.author }}</span>
         </a>
       </mat-nav-list>
     </mat-card-content>

@@ -5,7 +5,7 @@ export class RestUtil {
   public static buildParamsFromPageRequest(
     filter: Partial<PageRequest>
   ): HttpParams {
-    const { pageIndex, pageSize, sort, direction } = filter;
+    const { pageIndex, pageSize, sort, direction, term } = filter;
     // using let and reassigning params, because httpParams is immutable, so .set() returns new object.
     let params = new HttpParams();
     if (pageIndex != null) {
@@ -17,6 +17,23 @@ export class RestUtil {
     if (sort != null) {
       params = params.set('sort', sort + ',' + direction ?? '');
     }
+    if (term != null) {
+      params = params.set('term', term);
+    }
+    return params;
+  }
+  public static buildParamsFromPageRequest2(
+    title: string,
+    filter: Partial<PageRequest>
+  ): HttpParams {
+    // using let and reassigning params, because httpParams is immutable, so .set() returns new object.
+
+    let params = RestUtil.buildParamsFromPageRequest(filter);
+
+    if (title != null) {
+      params = params.set('title', title);
+    }
+
     return params;
   }
 }
