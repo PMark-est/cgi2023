@@ -1,11 +1,22 @@
 <div class="content" *ngIf="book$ | async as book">
   <h1>{{ book.title }}</h1>
-  <span> Autor: {{ book.author }} </span>
-  <span> Žanr: {{ book.genre }} </span>
-  <span> Ilmumisaasta: {{ book.year }} </span>
-  <span> Olemasolu: {{ book.status }} </span>
-  <span> Tähtaeg: {{ book.dueDate }} </span>
-  <span> Mitu korda on laenutatud: {{ book.checkOutCount }} </span>
-  <span> Lisatud: {{ book.added }} </span>
-  <span> Kommentaar: {{ book.comment }} </span>
+  <div>Autor: {{ book.author }}</div>
+  <div>Žanr: {{ book.genre }}</div>
+  <div>Ilmumisaasta: {{ book.year }}</div>
+  <div>Olemasolu: {{ book.status }}</div>
+  <div>Tähtaeg: {{ book.dueDate }}</div>
+  <div>Mitu korda on laenutatud: {{ book.checkOutCount }}</div>
+  <div>Lisatud: {{ book.added }}</div>
+  <div>Kommentaar: {{ book.comment }}</div>
+</div>
+<div class="btn">
+  <button
+    mat-button
+    [ngStyle]="{ 'background-color': activeColor }"
+    [disabled]="isDisabled"
+    class="btn-checkout"
+    (click)="onCheckout()"
+  >
+    Laenuta
+  </button>
 </div>

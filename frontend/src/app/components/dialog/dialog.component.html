@@ -1,0 +1,21 @@
+<h1>Raamatu laenamine</h1>
+<form class="form-controller">
+  <mat-form-field class="mat-form-field">
+    <mat-label>Eesnimi</mat-label>
+    <input matInput class="mat-input" />
+  </mat-form-field>
+  <mat-form-field class="mat-form-field">
+    <mat-label>Perenimi</mat-label>
+    <input matInput class="mat-input" />
+  </mat-form-field>
+</form>
+<div class="submit">
+  <button mat-button (click)="onClose()">Sulge</button>
+  <button
+    mat-button
+    [ngStyle]="{ 'background-color': activeColor, border: activeBorder }"
+    (click)="onSubmit()"
+  >
+    {{ checkoutMessage }}
+  </button>
+</div>

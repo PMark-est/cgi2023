@@ -14,6 +14,7 @@ import { CheckoutsListComponent } from './components/checkouts-list/checkouts-li
 import { CheckoutDetailComponent } from './components/checkout-detail/checkout-detail.component';
 import { AddBookComponent } from './components/add-book/add-book.component';
 import { AddCheckoutComponent } from './components/add-checkout/add-checkout.component';
+import { DialogComponent } from './components/dialog/dialog.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { AddCheckoutComponent } from './components/add-checkout/add-checkout.com
     CheckoutDetailComponent,
     AddBookComponent,
     AddCheckoutComponent,
+    DialogComponent,
   ],
   imports: [
     BrowserModule,
