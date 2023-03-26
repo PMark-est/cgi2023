@@ -13,6 +13,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class CheckoutsListComponent implements OnInit {
   checkouts$!: Observable<Page<Checkout>>;
+  currentDate: string = new Date().toISOString().substring(0, 10);
   currentPage: number = 0;
   pageAmount: number;
   pageSize: number = 20;

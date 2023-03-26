@@ -29,11 +29,16 @@
     <mat-card-content>
       <mat-nav-list *ngIf="books$! | async as books">
         <a
+          [ngStyle]="{
+            'border-left':
+              book.status !== 'AVAILABLE' ? '#ff7f00 5px solid' : ''
+          }"
           mat-list-item
           *ngFor="let book of books.content"
           [routerLink]="['/books', book.id]"
         >
           {{ book.title }} - <span class="book-author">{{ book.author }}</span>
+          <mat-icon>close</mat-icon>
         </a>
       </mat-nav-list>
     </mat-card-content>

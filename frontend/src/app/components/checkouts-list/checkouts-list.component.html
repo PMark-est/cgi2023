@@ -13,8 +13,12 @@
     <mat-card-content>
       <mat-nav-list *ngIf="checkouts$ | async as checkouts">
         <a
-          mat-list-item
           *ngFor="let checkout of checkouts.content"
+          [ngStyle]="{
+            'border-left':
+              checkout.dueDate < currentDate ? '#ff7f00 5px solid' : ''
+          }"
+          mat-list-item
           [routerLink]="['/checkouts', checkout.id]"
         >
           {{ checkout.borrowedBook.title }}
