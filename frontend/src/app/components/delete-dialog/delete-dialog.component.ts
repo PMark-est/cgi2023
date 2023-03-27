@@ -22,8 +22,9 @@ export class DeleteDialogComponent {
   }
 
   onDelete(): void {
-    console.log(this.data);
-    this.bookService.deleteBook(this.data.id).subscribe();
+    this.bookService
+      .deleteBook(this.data.id)
+      .subscribe(() => location.reload());
     this.dialogRef.close();
   }
 }

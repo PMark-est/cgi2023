@@ -57,7 +57,9 @@ export class AddCheckoutDialog {
         checkedOutDate: currentDate.toISOString(),
         dueDate: dueDate.toISOString(),
       };
-      this.checkoutService.saveCheckout(checkout).subscribe();
+      this.checkoutService
+        .saveCheckout(checkout)
+        .subscribe(() => location.reload());
       this.dialogRef.close();
     }
     this.active = true;

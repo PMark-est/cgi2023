@@ -43,7 +43,7 @@ export class AddBookDialogComponent {
       dueDate: newDate.toISOString(),
       comment: this.comment,
     };
-    this.bookService.saveBook(book).subscribe();
+    this.bookService.saveBook(book).subscribe(() => location.reload());
     this.dialogRef.close();
   }
 }

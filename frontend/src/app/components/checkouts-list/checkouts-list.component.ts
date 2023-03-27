@@ -46,7 +46,6 @@ export class CheckoutsListComponent implements OnInit {
     this.router.navigate(['/checkouts'], {
       queryParams: { page: this.currentPage },
     });
-    console.log(this.currentPage);
     this.checkouts$ = this.checkoutService.getCheckouts({
       pageIndex: this.currentPage,
     });
