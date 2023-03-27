@@ -1,0 +1,19 @@
+h1 {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 25px;
+}
+
+.form-controller {
+  display: grid;
+  justify-content: center;
+  margin: 20px 30px;
+}
+.submit {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.submit button {
+  padding: 25px 50px;
+}

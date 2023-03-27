@@ -1,13 +1,26 @@
-<h1>Raamatu laenamine</h1>
 <form class="form-controller">
+  <h1>Raamatu laenamine</h1>
   <mat-form-field class="mat-form-field">
     <mat-label>Eesnimi</mat-label>
-    <input matInput class="mat-input" />
+    <input
+      matInput
+      autocomplete="off"
+      [(ngModel)]="firstName"
+      name="firstName"
+      class="mat-input"
+    />
   </mat-form-field>
   <mat-form-field class="mat-form-field">
     <mat-label>Perenimi</mat-label>
-    <input matInput class="mat-input" />
+    <input
+      matInput
+      autocomplete="off"
+      [(ngModel)]="lastName"
+      name="lastName"
+      class="mat-input"
+    />
   </mat-form-field>
+  <p *ngIf="error" style="color: #f00">Kohustuslikud väljad on puudu!</p>
 </form>
 <div class="submit">
   <button mat-button (click)="onClose()">Sulge</button>

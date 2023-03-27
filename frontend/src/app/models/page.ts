@@ -19,4 +19,5 @@ export interface PageRequest {
   sort?: string;
   direction?: SortDirection;
   term?: string;
+  status?: string;
 }

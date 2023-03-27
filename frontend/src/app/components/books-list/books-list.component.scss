@@ -2,9 +2,11 @@
   max-width: 1024px;
   margin: 2em auto;
 }
+mat-paginator,
 .mat-card {
   background-color: #f5e9e2;
 }
+
 .books-title {
   margin-top: 1em;
   margin-left: 1.5em;
@@ -23,7 +25,46 @@
   background-color: #c84566;
   color: #fff;
 }
+a {
+  width: 95%;
+}
 mat-icon {
+  margin-top: 0.5em;
   float: right;
   color: #f00;
+}
+.filtering {
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  height: 56px;
+
+  .searchbtn {
+    margin-top: 0;
+    margin-left: 10px;
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
+
+  .search {
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  #searchbar {
+    border-radius: 5px;
+    border: none;
+    padding: 0 0 0 15px;
+    height: 100%;
+  }
+
+  ::ng-deep .mat-mdc-form-field-subscript-wrapper {
+    display: none;
+  }
+}
+
+.deleteBtn {
+  margin: 0;
 }

@@ -1,0 +1,52 @@
+<form class="form-controller">
+  <h1>Lisa raamat</h1>
+  <mat-form-field class="mat-form-field">
+    <mat-label>*Pealkiri</mat-label>
+    <input
+      autocomplete="off"
+      [(ngModel)]="title"
+      name="title"
+      matInput
+      class="mat-input"
+    />
+  </mat-form-field>
+  <mat-form-field class="mat-form-field">
+    <mat-label>*Autor</mat-label>
+    <input
+      autocomplete="off"
+      [(ngModel)]="author"
+      name="author"
+      matInput
+      class="mat-input"
+    />
+  </mat-form-field>
+  <mat-form-field class="mat-form-field">
+    <mat-label>*Ilmumisaasta</mat-label>
+    <input
+      autocomplete="off"
+      [(ngModel)]="year"
+      name="year"
+      matInput
+      class="mat-input"
+    />
+  </mat-form-field>
+  <mat-form-field class="mat-form-field">
+    <mat-label>*Žanr</mat-label>
+    <input
+      autocomplete="off"
+      [(ngModel)]="genre"
+      name="genre"
+      matInput
+      class="mat-input"
+    />
+  </mat-form-field>
+  <mat-form-field class="mat-form-field">
+    <mat-label>Kommentaar</mat-label>
+    <textarea matInput [(ngModel)]="comment" name="comment"></textarea>
+  </mat-form-field>
+  <p *ngIf="error" style="color: #f00">Kohustuslikud väljad on puudu!</p>
+  <div class="submit">
+    <button mat-button (click)="onClose()">Sulge</button>
+    <button mat-button (click)="onAdd()">Lisa</button>
+  </div>
+</form>

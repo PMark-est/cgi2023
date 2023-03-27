@@ -2,6 +2,7 @@ package com.cgi.library.service;
 
 import com.cgi.library.entity.Book;
 import com.cgi.library.model.BookDTO;
+import com.cgi.library.model.BookStatus;
 import com.cgi.library.repository.BookRepository;
 import com.cgi.library.util.ModelMapperFactory;
 import org.modelmapper.ModelMapper;
@@ -10,9 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class BookService {
@@ -20,18 +19,18 @@ public class BookService {
     @Autowired
     private BookRepository bookRepository;
 
-    public Page<BookDTO> getBooks(Pageable pageable) {
+    public Page<BookDTO> getBooks(BookStatus status, Pageable pageable) {
         ModelMapper modelMapper = ModelMapperFactory.getMapper();
-        return bookRepository.findAll(pageable).map(book -> modelMapper.map(book, BookDTO.class));
+        return bookRepository.findAllByStatus(status, pageable).map(book -> modelMapper.map(book, BookDTO.class));
     }
 
-    public Page<BookDTO> searchBooks(String term, Pageable pageable) {
+    public Page<BookDTO> searchBooks(String term, BookStatus status, Pageable pageable) {
         //https://www.baeldung.com/java-modelmapper-lists
         //https://www.youtube.com/watch?v=NMA4ndswwuo
         //https://www.bezkoder.com/spring-data-pageable-custom-query/
         //Need aitasid õigest käima panna, aga loogika on ise loodud
         ModelMapper modelMapper = ModelMapperFactory.getMapper();
-        return bookRepository.searchBooks(term, pageable).map(book -> modelMapper.map(book, BookDTO.class));
+        return bookRepository.searchBooks(term, status.name(), pageable).map(book -> modelMapper.map(book, BookDTO.class));
     }
 
     public BookDTO getBook(UUID bookId) {

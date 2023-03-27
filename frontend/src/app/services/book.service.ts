@@ -26,9 +26,9 @@ export class BookService {
     return this.http.get<Book>(url, { params });
   }
 
-  saveBook(book: Book): Observable<void> {
+  saveBook(book: Book): Observable<string> {
     const url = this.baseUrl + '/saveBook';
-    return this.http.post<void>(url, book);
+    return this.http.post(url, book, { responseType: 'text' });
   }
 
   deleteBook(bookId: string): Observable<void> {

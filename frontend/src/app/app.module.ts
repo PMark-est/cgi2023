@@ -7,14 +7,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
 
 import { BookDetailComponent } from './components/book-detail/book-detail.component';
 import { BooksListComponent } from './components/books-list/books-list.component';
 import { CheckoutsListComponent } from './components/checkouts-list/checkouts-list.component';
 import { CheckoutDetailComponent } from './components/checkout-detail/checkout-detail.component';
-import { AddBookComponent } from './components/add-book/add-book.component';
-import { AddCheckoutComponent } from './components/add-checkout/add-checkout.component';
-import { DialogComponent } from './components/dialog/dialog.component';
+import { AddCheckoutDialog } from './components/add-checkout-dialog/add-checkout-dialog.component';
+import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
+import { AddBookDialogComponent } from './components/add-book-dialog/add-book-dialog.component';
 
 @NgModule({
   declarations: [
@@ -23,9 +24,9 @@ import { DialogComponent } from './components/dialog/dialog.component';
     BookDetailComponent,
     CheckoutsListComponent,
     CheckoutDetailComponent,
-    AddBookComponent,
-    AddCheckoutComponent,
-    DialogComponent,
+    AddCheckoutDialog,
+    DeleteDialogComponent,
+    AddBookDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,6 +35,7 @@ import { DialogComponent } from './components/dialog/dialog.component';
     BrowserAnimationsModule,
     MaterialModule,
     FormsModule,
+    MatInputModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

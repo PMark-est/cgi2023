@@ -3,19 +3,19 @@
   <div>Autor: {{ book.author }}</div>
   <div>Žanr: {{ book.genre }}</div>
   <div>Ilmumisaasta: {{ book.year }}</div>
-  <div>Olemasolu: {{ book.status }}</div>
-  <div>Tähtaeg: {{ book.dueDate }}</div>
+  <div>Saadavus: {{ book.status }}</div>
+  <div *ngIf="book.status != 'AVAILABLE'">Tähtaeg: {{ book.dueDate }}</div>
   <div>Mitu korda on laenutatud: {{ book.checkOutCount }}</div>
   <div>Lisatud: {{ book.added }}</div>
-  <div>Kommentaar: {{ book.comment }}</div>
+  <div *ngIf="book.comment">Kommentaar: {{ book.comment }}</div>
 </div>
-<div class="btn">
+<div class="btn" *ngIf="book$ | async as book">
   <button
     mat-button
     [ngStyle]="{ 'background-color': activeColor }"
     [disabled]="isDisabled"
     class="btn-checkout"
-    (click)="onCheckout()"
+    (click)="onCheckout(book)"
   >
     Laenuta
   </button>
